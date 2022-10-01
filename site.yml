@@ -12,5 +12,6 @@
       tags: ['always']
 
   roles:
+    - common
     - openssh
     - dovecot
