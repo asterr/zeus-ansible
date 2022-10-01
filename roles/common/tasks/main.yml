@@ -1,0 +1,12 @@
+---
+# tasks file for common
+
+- name: Setup timezone to Asia/Tokyo
+  timezone:
+    name: Asia/Tokyo
+    state: latest
+
+- name: Install Git
+  apt:
+    name: git
+    state: latest
