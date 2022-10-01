@@ -4,7 +4,6 @@
 - name: Setup timezone to Asia/Tokyo
   ansible.builtin.timezone:
     name: Asia/Tokyo
-    state: latest
 
 - name: Install Git
   ansible.builtin.apt:
