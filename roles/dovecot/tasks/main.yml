@@ -44,4 +44,19 @@
     owner: root
     group: root
     mode: u=rw,g=r,o=r
+    backup: yes
+  notify: Restart Dovecot
+
+# ------------------------------
+# Install certificates
+#
+# ------------------------------
+- name: Install Certificates for Dovecot
+  ansible.builtin.copy:
+    src: certs/
+    dest: /etc/dovecot/private/
+    owner: root
+    group: root
+    mode: u=rw,g=r,o-rwx
+    backup: yes
   notify: Restart Dovecot
