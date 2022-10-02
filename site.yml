@@ -13,6 +13,8 @@
       tags: ['always']
 
   roles:
-    - common
-    - openssh
-    - dovecot
+    - role: common
+    - role: openssh
+    - role: dovecot
+      tags:
+        - dovecot
