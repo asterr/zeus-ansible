@@ -20,3 +20,17 @@
     fstype: none
     opts: bind,ro
     state: mounted
+
+- name: Install smbcredentials
+  ansible.builtin.copy:
+    src: smbcredentials
+    dest: /home/asterr/.smbcredentials
+    owner: asterr
+    group: asterr
+    mode: u=rw,g-rwx,o-rwx
+    backup: yes
+
+- name: Install cifs-utils
+  ansible.builtin.apt:
+    name: cifs-utils
+    state: latest
