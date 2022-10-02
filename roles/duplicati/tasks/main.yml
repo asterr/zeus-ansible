@@ -12,3 +12,11 @@
     fstype: tmpfs
     opts: size=20m
     state: mounted
+
+- name: Change /mnt to RO bind mount
+  ansible.posix.mount:
+    path: /mnt
+    src: /mnt_rw
+    fstype: none
+    opts: bind,ro
+    state: mounted
