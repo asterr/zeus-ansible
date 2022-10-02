@@ -83,6 +83,12 @@
 # -----------------------------
 # Setup user
 #
+- name: Install user packages
+  ansible.builtin.apt:
+    name:
+      - whois
+    state: latest
+
 - name: Create Group asterr
   ansible.builtin.group:
     name: asterr
@@ -100,3 +106,22 @@
     password_expire_min: 0
     shell: /bin/bash
 
+- name: Create Group uroot
+  ansible.builtin.group:
+    name: uroot
+    gid: 1001
+    state: present
+
+- name: Create User uroot
+  ansible.builtin.user:
+    name: uroot
+    comment: Ubuntu Root
+    uid: 1001
+    groups: ['uroot', 'sudo']
+    home: '/home/uroot'
+    password: >
+      '$6$Y1yOZdBRb/P6sdKc$hQQSLOn7w7kfCkE6dIiAg1Ep0eH3ATvGOuPDqcM
+      1BYx3eJYue6w6MYJ0oAuuuzRpvqiXnoQCE8Q/Pex7uqtET1'
+    password_expire_max: 99999
+    password_expire_min: 0
+    shell: /bin/bash
