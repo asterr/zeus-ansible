@@ -22,6 +22,15 @@
   ansible.builtin.hostname:
     name: zeus
 
+- name: Add name to /etc/hosts
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: 127.0.0.1 localhost zeus
+    owner: root
+    group: root
+    mode: '0644'
+
 # -----------------------------
 # Install apt
 #
