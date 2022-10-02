@@ -34,3 +34,16 @@
   ansible.builtin.apt:
     name: cifs-utils
     state: latest
+
+- name: Install Duplicati
+  ansible.builtin.apt:
+    name:
+      - duplicati
+      - mono-complete
+    state: latest
+
+- name: Duplicati Service
+  ansible.builtin.service:
+    name: duplicati
+    state: started
+    enabled: yes
