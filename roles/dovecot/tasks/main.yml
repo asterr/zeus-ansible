@@ -60,3 +60,16 @@
     mode: u=rw,g=r,o-rwx
     backup: yes
   notify: Restart Dovecot
+
+# ------------------------------
+# Setup Local Mail Support
+#
+# ------------------------------
+- name: Mail Utilities
+  ansible.builtin.apt:
+    name:
+      - alpine
+      - procmail
+      - spambayes
+      - fetchmail
+    state: latest
