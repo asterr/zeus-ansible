@@ -37,29 +37,11 @@
 # - Disable IMAP
 #
 # ------------------------------
-- name: Enable IMAPS for Dovecot a
-  ansible.builtin.lineinfile:
-    path: /etc/dovecot/conf.d/10-master.conf
-    regexp: '^([^#]*)port = 143'
-    line: g\<1>#port = 143
-    backrefs: yes
-    backup: yes
-  notify: Restart Dovecot
-
-- name: Enable IMAPS for Dovecot b
-  ansible.builtin.lineinfile:
-    path: /etc/dovecot/conf.d/10-master.conf
-    regexp: '^(.*)# *port = 993'
-    line: g\<1>port = 993
-    backrefs: yes
-    backup: yes
-  notify: Restart Dovecot
-
-- name: Enable IMAPS for Dovecot c
-  ansible.builtin.lineinfile:
-    path: /etc/dovecot/conf.d/10-master.conf
-    regexp: '^(.*)# *ssl = yes'
-    line: g\<1>ssl = yes
-    backrefs: yes
-    backup: yes
+- name: Enable IMAPS for Dovecot
+  ansible.builtin.copy:
+    src: 10-master.conf
+    dest: /etc/dovecot/conf.d/10-master.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
   notify: Restart Dovecot
