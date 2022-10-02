@@ -42,6 +42,7 @@
     path: /etc/dovecot/conf.d/10-master.conf
     regexp: '^([^#]*)port = 143'
     line: g\<1>#port = 143
+    backrefs: yes
     backup: yes
   notify: Restart Dovecot
 
@@ -50,6 +51,7 @@
     path: /etc/dovecot/conf.d/10-master.conf
     regexp: '^(.*)# *port = 993'
     line: g\<1>port = 993
+    backrefs: yes
     backup: yes
   notify: Restart Dovecot
 
@@ -58,5 +60,6 @@
     path: /etc/dovecot/conf.d/10-master.conf
     regexp: '^(.*)# *ssl = yes'
     line: g\<1>ssl = yes
+    backrefs: yes
     backup: yes
   notify: Restart Dovecot
