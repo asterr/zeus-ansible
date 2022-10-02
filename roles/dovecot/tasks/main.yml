@@ -70,6 +70,5 @@
     name:
       - alpine
       - procmail
-      - spambayes
       - fetchmail
     state: latest
