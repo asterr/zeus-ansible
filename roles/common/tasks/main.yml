@@ -79,3 +79,24 @@
 #
 # -----------------------------
 
+
+# -----------------------------
+# Setup user
+#
+- name: Create Group asterr
+  ansible.builtin.group:
+    name: asterr
+    gid: 1000
+    state: present
+
+- name: Create User asterr
+  ansible.builtin.user:
+    name: asterr
+    comment: Aaron Sterr
+    uid: 1000
+    groups: ['asterr', 'sudo']
+    home: '/home/asterr'
+    password_expire_max: 99999
+    password_expire_min: 0
+    shell: /bin/bash
+
