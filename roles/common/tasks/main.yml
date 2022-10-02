@@ -33,6 +33,16 @@
     backup: 'yes'
 
 # -----------------------------
+# Set locale
+#
+- name: Set Locale to English
+  ansible.builtin.include_role:
+    name: debops.debops.locales
+  # vars:
+  #   rolevar1: value from task
+
+
+# -----------------------------
 # Install apt
 #
 - name: Install Pip
