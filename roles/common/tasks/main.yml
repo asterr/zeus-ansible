@@ -43,6 +43,12 @@
         - locale
   vars:
     locales__system_lang: 'en_US.UTF-8'
+    locales__list:
+      - name: en_US.UTF-8
+        state: present
+      - name: ja_JP.UTF-8
+        state: absent
+
   tags:
     - always
 
