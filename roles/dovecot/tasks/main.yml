@@ -1,2 +1,23 @@
 ---
 # tasks file for dovecot
+
+- name: Install Packages
+  ansible.builtin.apt:
+    name:
+      - mailutils
+      - dovecot-core
+      - dovecot-imapd
+    state: latest
+
+- name: Dovecot Service
+  ansible.builtin.service:
+    name: dovecot
+    state: started
+    enabled: yes
+
+# asterr@zeus:~$ cat /etc/dovecot/conf.d/10-ssl.conf | egrep -v "^#|^ *$"
+# ssl = required
+# ssl_cert = </etc/dovecot/private/dovecot.pem
+# ssl_key = </etc/dovecot/private/dovecot.key
+# ssl_client_ca_dir = /etc/ssl/certs
+# ssl_dh = </usr/share/dovecot/dh.pem
