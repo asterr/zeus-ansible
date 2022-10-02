@@ -31,3 +31,32 @@
     line: 'ssl = required'
     backup: yes
   notify: Restart Dovecot
+
+# ------------------------------
+# Enable IMAPS Listener
+# - Disable IMAP
+#
+# ------------------------------
+- name: Enable IMAPS for Dovecot a
+  ansible.builtin.lineinfile:
+    path: /etc/dovecot/conf.d/10-master.conf
+    regexp: '^([^#]*)port = 143'
+    line: g\<1>#port = 143
+    backup: yes
+  notify: Restart Dovecot
+
+- name: Enable IMAPS for Dovecot b
+  ansible.builtin.lineinfile:
+    path: /etc/dovecot/conf.d/10-master.conf
+    regexp: '^(.*)# *port = 993'
+    line: g\<1>port = 993
+    backup: yes
+  notify: Restart Dovecot
+
+- name: Enable IMAPS for Dovecot c
+  ansible.builtin.lineinfile:
+    path: /etc/dovecot/conf.d/10-master.conf
+    regexp: '^(.*)# *ssl = yes'
+    line: g\<1>ssl = yes
+    backup: yes
+  notify: Restart Dovecot
