@@ -119,7 +119,10 @@
     uid: 1001
     groups: ['uroot', 'sudo']
     home: '/home/uroot'
-    password: "{{ uroot_password | password_hash('sha512') }}"
+    password: "{{ '%s' | format(uroot_password) | regex_replace('\n', '') | password_hash('sha512') }}"
+    update_password: on_create
     password_expire_max: 99999
     password_expire_min: 0
     shell: /bin/bash
+  tags:
+    - user
