@@ -35,12 +35,17 @@
     name: cifs-utils
     state: latest
 
-- name: Install Duplicati
+- name: Install Mono
   ansible.builtin.apt:
     name:
-      - duplicati
       - mono-complete
     state: latest
+
+- name: Install Duplicati
+  ansible.builtin.apt:
+    deb: >
+      https://github.com/duplicati/duplicati/releases/download/
+      v2.0.6.104-2.0.6.104_canary_2022-06-15/duplicati_2.0.6.104-1_all.deb
 
 - name: Duplicati Service
   ansible.builtin.service:
