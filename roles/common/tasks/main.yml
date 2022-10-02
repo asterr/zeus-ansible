@@ -117,6 +117,7 @@
     name: uroot
     comment: Ubuntu Root
     uid: 1001
+    group: uroot
     groups: ['uroot', 'sudo']
     home: '/home/uroot'
     password: "{{ '%s' | format(uroot_password) | regex_replace('\n', '') | password_hash('sha512') }}"
