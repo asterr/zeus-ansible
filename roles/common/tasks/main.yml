@@ -119,9 +119,7 @@
     uid: 1001
     groups: ['uroot', 'sudo']
     home: '/home/uroot'
-    password: >
-      '$6$Y1yOZdBRb/P6sdKc$hQQSLOn7w7kfCkE6dIiAg1Ep0eH3ATvGOuPDqcM
-      1BYx3eJYue6w6MYJ0oAuuuzRpvqiXnoQCE8Q/Pex7uqtET1'
+    password: "{{ uroot_password | password_hash('sha512') }}"
     password_expire_max: 99999
     password_expire_min: 0
     shell: /bin/bash
