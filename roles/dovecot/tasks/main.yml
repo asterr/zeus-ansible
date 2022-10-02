@@ -15,9 +15,19 @@
     state: started
     enabled: yes
 
-# asterr@zeus:~$ cat /etc/dovecot/conf.d/10-ssl.conf | egrep -v "^#|^ *$"
+# ------------------------------
+# Key SSL Settings, most are defaults
+#
 # ssl = required
 # ssl_cert = </etc/dovecot/private/dovecot.pem
 # ssl_key = </etc/dovecot/private/dovecot.key
 # ssl_client_ca_dir = /etc/ssl/certs
 # ssl_dh = </usr/share/dovecot/dh.pem
+# ------------------------------
+- name: Require SSL for Dovecot
+  ansible.builtin.lineinfile:
+    path: /etc/dovecot/conf.d/10-ssl.conf
+    regexp: '^ssl ='
+    line: 'ssl = required'
+    backup: yes
+  notify: Restart Dovecot
