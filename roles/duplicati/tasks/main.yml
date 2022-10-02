@@ -1,2 +1,13 @@
 ---
 # tasks file for duplicati
+- name: Create /mnt_rw
+  ansible.builtin.file:
+    path: /mnt_rw
+    state: directory
+
+- name: Mount /mnt_rw on tmpfs
+  ansible.posix.mount:
+    path: /mnt_rw
+    fstype: tmpfs
+    opts: size=20m
+    state: mounted
