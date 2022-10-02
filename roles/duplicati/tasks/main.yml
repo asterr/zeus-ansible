@@ -8,6 +8,7 @@
 - name: Mount /mnt_rw on tmpfs
   ansible.posix.mount:
     path: /mnt_rw
+    src: tmpfs
     fstype: tmpfs
     opts: size=20m
     state: mounted
