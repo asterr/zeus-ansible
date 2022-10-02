@@ -38,8 +38,13 @@
 - name: Set Locale to English
   ansible.builtin.include_role:
     name: debops.debops.locales
-  # vars:
-  #   rolevar1: value from task
+    apply:
+      tags:
+        - locale
+  vars:
+    locales__system_lang: 'en_US.UTF-8'
+  tags:
+    - always
 
 
 # -----------------------------
