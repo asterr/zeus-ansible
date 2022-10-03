@@ -144,3 +144,4 @@
     minute: "*/15"
     job: "if ! out=`/home/asterr/ansible-runner.sh`; then echo $out; fi"
     backup: yes
+    user: asterr
