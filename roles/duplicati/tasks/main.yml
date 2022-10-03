@@ -41,6 +41,11 @@
       - mono-complete
     state: latest
 
+- name: Ensure downloads directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/Downloads"
+    state: directory
+
 - name: Fetch Duplicati Package
   ansible.builtin.get_url:
     url: https://github.com/duplicati/duplicati/releases/download/v2.0.6.104-2.0.6.104_canary_2022-06-15/duplicati_2.0.6.104-1_all.deb
