@@ -41,11 +41,14 @@
       - mono-complete
     state: latest
 
-- name: Install Duplicati
+- name: Fetch Duplicati Package
+  ansible.builtin.get_url:
+    url: https://github.com/duplicati/duplicati/releases/download/v2.0.6.104-2.0.6.104_canary_2022-06-15/duplicati_2.0.6.104-1_all.deb
+    dest: "{{ ansible_env.HOME }}/Downloads/duplicati_2.0.6.104-1_all.deb"
+
+- name: Install Duplicati Package
   ansible.builtin.apt:
-    deb: >
-      https://github.com/duplicati/duplicati/releases/download/
-      v2.0.6.104-2.0.6.104_canary_2022-06-15/duplicati_2.0.6.104-1_all.deb
+    deb: "{{ ansible_env.HOME }}/Downloads/duplicati_2.0.6.104-1_all.deb"
 
 - name: Duplicati Service
   ansible.builtin.service:
