@@ -127,3 +127,20 @@
     shell: /bin/bash
   tags:
     - user
+
+# -----------------------------
+# Cron to run ansible
+#
+- name: Install wrapper
+  ansible.builtin.copy:
+    src: ansible-runner.sh
+    dest: /home/asterr/ansible-runner.sh
+    mode: u=rwx,g=rx,o=rx
+    backup: yes
+
+- name: Add ansible cron job
+  ansible.builtin.cron:
+    name: "run ansible"
+    minute: "0/15"
+    job: "if ! out=`/home/asterr/ansible-runner.sh`; then echo $out; fi"
+    backup: yes
