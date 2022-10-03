@@ -76,7 +76,7 @@
     path: /mnt/duplicati001
     src: //192.168.2.143/duplicati001
     fstype: cifs
-    opts: credentials=/home/asterr/.smbcredentials,iocharset=utf8,sec=ntlm,cache=none,vers=1.0
+    opts: credentials=/home/asterr/.smbcredentials,iocharset=utf8,cache=none,vers=1.0
     state: mounted
 
 - name: Mount duplicati002 disk
@@ -84,5 +84,5 @@
     path: /mnt/duplicati002
     src: //192.168.2.144/duplicati002
     fstype: cifs
-    opts: credentials=/home/asterr/.smbcredentials,iocharset=utf8,sec=ntlm,cache=none,vers=1.0
+    opts: credentials=/home/asterr/.smbcredentials,iocharset=utf8,cache=none,vers=1.0
     state: mounted
