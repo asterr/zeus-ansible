@@ -141,6 +141,6 @@
 - name: Add ansible cron job
   ansible.builtin.cron:
     name: "run ansible"
-    minute: "0/15"
+    minute: "*/15"
     job: "if ! out=`/home/asterr/ansible-runner.sh`; then echo $out; fi"
     backup: yes
