@@ -60,3 +60,29 @@
     name: duplicati
     state: started
     enabled: yes
+
+- name: Create duplicati001 mount point
+  ansible.builtin.file:
+    path: /mnt_rw/duplicati001
+    state: directory
+
+- name: Create duplicati002 mount point
+  ansible.builtin.file:
+    path: /mnt_rw/duplicati002
+    state: directory
+
+- name: Mount duplicati001 disk
+  ansible.posix.mount:
+    path: /mnt/duplicati001
+    src: //192.168.2.143/duplicati001
+    fstype: cifs
+    opts: credentials=/home/asterr/.smbcredentials,iocharset=utf8,sec=ntlm,cache=none,vers=1.0
+    state: mounted
+
+- name: Mount duplicati002 disk
+  ansible.posix.mount:
+    path: /mnt/duplicati002
+    src: //192.168.2.144/duplicati002
+    fstype: cifs
+    opts: credentials=/home/asterr/.smbcredentials,iocharset=utf8,sec=ntlm,cache=none,vers=1.0
+    state: mounted
