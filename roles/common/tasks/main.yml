@@ -33,23 +33,6 @@
     backup: 'yes'
 
 # -----------------------------
-# Set a fixed IP
-#
-- name: Install network-manager
-  ansible.builtin.apt:
-    name: network-manager
-    state: latest
-
-- name: Configure Host
-  community.general.nmcli:
-    conn_name: my-eth0
-    type: ethernet
-    state: present
-    autoconnect: yes
-    ip4: 172.16.122.10
-    gw4: 172.16.122.1
-
-# -----------------------------
 # Set locale
 #
 - name: Set Locale to English
