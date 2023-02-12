@@ -142,6 +142,6 @@
   ansible.builtin.cron:
     name: "run ansible"
     minute: "*/15"
-    job: "if ! out=`/home/asterr/ansible-runner.sh`; then echo $out; fi"
+    job: "if ! out=`/home/asterr/ansible-runner.sh 2>&1`; then echo \"$out\"; fi"
     backup: yes
     user: asterr
