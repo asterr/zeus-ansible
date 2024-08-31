@@ -48,12 +48,12 @@
 
 - name: Fetch Duplicati Package
   ansible.builtin.get_url:
-    url: https://github.com/duplicati/duplicati/releases/download/v2.0.9.100_canary_2024-05-30/duplicati-2.0.9.100_canary_2024-05-30-linux-arm64-cli.deb
-    dest: "{{ ansible_env.HOME }}/Downloads/duplicati-2.0.9.100_canary_2024-05-30-linux-arm64-cli.deb"
+    url: https://updates.duplicati.com/canary/duplicati-2.0.9.105_canary_2024-08-29-linux-arm64-cli.deb
+    dest: "{{ ansible_env.HOME }}/Downloads/duplicati-2.0.9.105_canary_2024-08-29-linux-arm64-cli.deb"
 
 - name: Install Duplicati Package
   ansible.builtin.apt:
-    deb: "{{ ansible_env.HOME }}/Downloads/duplicati-2.0.9.100_canary_2024-05-30-linux-arm64-cli.deb"
+    deb: "{{ ansible_env.HOME }}/Downloads/duplicati-2.0.9.105_canary_2024-08-29-linux-arm64-cli.deb"
 
 - name: Duplicati Service
   ansible.builtin.service:
