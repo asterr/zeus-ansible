@@ -54,6 +54,7 @@
 - name: Install Duplicati Package
   ansible.builtin.apt:
     deb: "{{ ansible_env.HOME }}/Downloads/duplicati-{{ desired_version }}-linux-arm64-cli.deb"
+  register: duplicati_package
 
 - name: Duplicati Service
   ansible.builtin.service:
@@ -65,7 +66,7 @@
   ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
-  when: ansible_facts.changed.packages | select('match', 'duplicati')
+  when: duplicati_package.changed
   with_items:
     - duplicati
 
