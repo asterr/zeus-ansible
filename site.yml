@@ -3,7 +3,7 @@
   vars_files:
     - default.config.yml
     - config.yml
-  become: yes
+  become: true
 
   pre_tasks:
     - name: Include playbook configuration.
@@ -21,3 +21,5 @@
     - role: duplicati
       tags:
         - duplicati
+      vars:
+        desired_version: "2.0.9.106_canary_2024-09-03"
