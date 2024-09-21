@@ -1,2 +1,3 @@
 ---
 # vars file for duplicati
+desired_version: "1.111"
