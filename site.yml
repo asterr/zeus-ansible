@@ -22,4 +22,4 @@
       tags:
         - duplicati
       vars:
-        desired_version: "2.1.0.107_canary_2025-01-17"
+        desired_version: "2.1.0.108_canary_2025-01-31"
