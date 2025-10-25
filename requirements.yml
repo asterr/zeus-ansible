@@ -3,3 +3,4 @@ roles: []
 
 collections:
   - name: debops.debops
+    version: ">=3.0.0"
