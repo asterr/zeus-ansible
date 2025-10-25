@@ -35,22 +35,32 @@
 # -----------------------------
 # Set locale
 #
-- name: Set Locale to English
-  ansible.builtin.include_role:
-    name: debops.debops.locales
-    apply:
-      tags:
-        - locale
-  vars:
-    locales__system_lang: 'en_US.UTF-8'
-    locales__list:
-      - name: en_US.UTF-8
-        state: present
-      - name: ja_JP.UTF-8
-        state: absent
-
+- name: Ensure en_US.UTF-8 locale is present
+  community.general.locale_gen:
+    name: en_US.UTF-8
+    state: present
   tags:
-    - always
+    - locale
+
+- name: Ensure ja_JP.UTF-8 locale is absent
+  community.general.locale_gen:
+    name: ja_JP.UTF-8
+    state: absent
+  tags:
+    - locale
+
+- name: Set default system locale to en_US.UTF-8
+  ansible.builtin.copy:
+    content: |
+      LANG=en_US.UTF-8
+      LANGUAGE=en_US:en
+      LC_ALL=en_US.UTF-8
+    dest: /etc/default/locale
+    mode: '0644'
+    owner: root
+    group: root
+  tags:
+    - locale
 
 
 # -----------------------------

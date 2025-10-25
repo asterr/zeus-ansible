@@ -2,4 +2,5 @@
 roles: []
 
 collections:
-  - name: debops.debops
+  - name: ansible.posix
+    version: ">=2.1.0"
