@@ -1,4 +1,6 @@
 ---
 roles: []
 
-collections: []
+collections:
+  - name: ansible.posix
+    version: ">=2.1.0"
