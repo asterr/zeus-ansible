@@ -76,9 +76,20 @@
     name: software-properties-common
     state: latest
 
+- name: Remove legacy ansible PPA list file
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/ansible-ubuntu-ansible-{{ ansible_facts['distribution_release'] }}.list
+    state: absent
+
 - name: Add ansible repository from PPA
-  ansible.builtin.apt_repository:
-    repo: ppa:ansible/ansible
+  ansible.builtin.deb822_repository:
+    name: ansible
+    types: deb
+    uris: https://ppa.launchpadcontent.net/ansible/ansible/ubuntu
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: main
+    signed_by: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125e2a8c77f2818fb7bd15b93c4a3fd7bb9c367
+    state: present
 
 - name: Install ansible
   ansible.builtin.apt:
