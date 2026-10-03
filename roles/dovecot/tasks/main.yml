@@ -9,43 +9,42 @@
       - dovecot-imapd
     state: latest
 
-- name: Dovecot Service
-  ansible.builtin.service:
-    name: dovecot
-    state: started
-    enabled: yes
+# ------------------------------
+# Dovecot 2.4 migration
+# - Restore stock conf.d files that were previously modified in place.
+#   The package upgrade leaves the new versions as *.ucf-dist.
+# ------------------------------
+- name: Check for pending Dovecot stock configs
+  ansible.builtin.stat:
+    path: "/etc/dovecot/conf.d/{{ item }}.ucf-dist"
+  loop:
+    - 10-master.conf
+    - 10-ssl.conf
+  register: dovecot_ucf_dist
 
-# ------------------------------
-# Key SSL Settings, most are defaults
-#
-# ssl = required
-# ssl_cert = </etc/dovecot/private/dovecot.pem
-# ssl_key = </etc/dovecot/private/dovecot.key
-# ssl_client_ca_dir = /etc/ssl/certs
-# ssl_dh = </usr/share/dovecot/dh.pem
-# ------------------------------
-- name: Require SSL for Dovecot
-  ansible.builtin.lineinfile:
-    path: /etc/dovecot/conf.d/10-ssl.conf
-    regexp: '^ssl ='
-    line: 'ssl = required'
-    backup: yes
-  notify: Restart Dovecot
-
-# ------------------------------
-# Enable IMAPS Listener
-# - Disable IMAP
-#
-# ------------------------------
-- name: Enable IMAPS for Dovecot
+- name: Restore stock Dovecot configs
   ansible.builtin.copy:
-    src: 10-master.conf
-    dest: /etc/dovecot/conf.d/10-master.conf
+    src: "{{ item.stat.path }}"
+    dest: "{{ item.stat.path | regex_replace('\\.ucf-dist$', '') }}"
+    remote_src: true
     owner: root
     group: root
     mode: u=rw,g=r,o=r
     backup: yes
+  loop: "{{ dovecot_ucf_dist.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: item.stat.exists
   notify: Restart Dovecot
+
+- name: Remove Dovecot ucf-dist files
+  ansible.builtin.file:
+    path: "{{ item.stat.path }}"
+    state: absent
+  loop: "{{ dovecot_ucf_dist.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: item.stat.exists
 
 # ------------------------------
 # Install certificates
@@ -60,6 +59,30 @@
     mode: u=rw,g=r,o-rwx
     backup: yes
   notify: Restart Dovecot
+
+# ------------------------------
+# Local settings
+# - Require SSL
+# - Enable IMAPS, disable IMAP
+# ------------------------------
+- name: Configure Dovecot
+  ansible.builtin.copy:
+    src: 99-local.conf
+    dest: /etc/dovecot/conf.d/99-local.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  notify: Restart Dovecot
+
+- name: Validate Dovecot configuration
+  ansible.builtin.command: doveconf -n
+  changed_when: false
+
+- name: Dovecot Service
+  ansible.builtin.service:
+    name: dovecot
+    state: started
+    enabled: yes
 
 # ------------------------------
 # Setup Local Mail Support
