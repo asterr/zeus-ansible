@@ -82,13 +82,18 @@
     path: /etc/apt/sources.list.d/ansible-ubuntu-ansible-{{ ansible_facts['distribution_release'] }}.list
     state: absent
 
-- name: Fetch ansible PPA signing key
+# Key vendored from keyserver.ubuntu.com (fingerprint
+# 6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367). Fetching it at runtime is not
+# idempotent: the keyserver ignores If-Modified-Since and its armor headers
+# vary between backends, so get_url rewrote the file on every run.
+- name: Install ansible PPA signing key
   tags: ppa
-  ansible.builtin.get_url:
-    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x6125e2a8c77f2818fb7bd15b93c4a3fd7bb9c367
+  ansible.builtin.copy:
+    src: ansible-ppa.asc
     dest: /etc/apt/keyrings/ansible-ppa.asc
+    owner: root
+    group: root
     mode: "0644"
-    force: false
 
 - name: Add ansible repository from PPA
   tags: ppa
